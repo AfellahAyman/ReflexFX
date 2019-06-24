@@ -1,39 +1,42 @@
-import java.time.*;
+
 import java.util.ArrayList;
-import java.util.Iterator;
+
+import com.sun.prism.paint.Color;
 
 import javafx.event.EventHandler;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
-import javafx.scene.text.Text;
 
-public class Jeu_Code {
+public class Jeu_Code extends Thread {
+	private static ArrayList<String> Colors = new ArrayList<String>();
 	private static ArrayList<Long> Temps = new ArrayList<Long>();
 	private static Circle circle;
 	private static double dx,dy;
 	private static int i;
 	private static long startTime;
-	private Text T;
-	private int Score = 0;
+	private static boolean On = true;
 	public Jeu_Code(Circle circle) {
 		i=0;
 		this.circle = circle;
 		circle.setStyle("-fx-fill: lightblue;");
 		this.dx = Math.random()*Jeu.getX();
 		this.dy = Math.random()*Jeu.getY();
+		Colors.add("-fx-fill: lightblue;");
+		Colors.add("-fx-fill: red;");
+		Colors.add("-fx-fill: black;");
+		Colors.add("-fx-fill: green;");
+		Colors.add("-fx-fill: purple;");
+		Colors.add("-fx-fill: orange;");
+		Colors.add("-fx-fill: pink;");
 //		circle.setRadius(50f);
+		//circle.setStyle("-fx-fill: lightblue;");
 		startTime = System.currentTimeMillis();
 		
 		circle.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
 		    @Override
 		    public void handle(MouseEvent mouseEvent) {
 		    	if(mouseEvent.getSource() instanceof Circle) {
+		    		On = false;
 		    		//System.out.println("Click !");
 		    	    circle.setCenterX(dx); 
 		    	    circle.setCenterY(dy); 
@@ -89,11 +92,25 @@ public class Jeu_Code {
 		i++;
 		
 	}
+	public void run() {
+		double j =circle.getRadius()+1;
+		if(j>50) {
+			j=50;
+			On = false;
+			}
+			circle.setRadius(j);
+			System.out.println(j);
+    }
 	public static void Afficher() {
-		circle.setRadius(50f);
+		On = true;
+		circle.setRadius(5f);
+		circle.setStyle(Colors.get((int)(Math.random()*Colors.size())));
 		startTime = System.currentTimeMillis();
 	}
 	public static void Cacher() {
 		circle.setRadius(0f);
+	}
+	public static boolean getOn() {
+		return On;
 	}
 }
