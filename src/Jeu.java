@@ -1,32 +1,24 @@
-import javax.swing.event.ChangeListener;
+//import javax.swing.event.ChangeListener;
 
 import javafx.application.*;
 import javafx.event.*;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
-import javafx.scene.control.TabPane.TabClosingPolicy;
-import javafx.scene.control.TextField;
+
+
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Border;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.BorderStroke;
-import javafx.scene.layout.BorderStrokeStyle;
-import javafx.scene.layout.BorderWidths;
-import javafx.scene.layout.CornerRadii;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import javafx.scene.transform.Translate;
+
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 public class Jeu extends Application {
 	private static Circle Cercle;
 	private static Pane Panel_Centrale;
@@ -36,24 +28,7 @@ public class Jeu extends Application {
 	@Override
 	public void start(Stage arg0) throws Exception {
 		arg0.setTitle("Jeu");
-		arg0.show();/*
-		VBox layout = new VBox(50);
-		layout.setAlignment(Pos.CENTER);
-		
-		TabPane tabPane = new TabPane();
-		tabPane.setTabClosingPolicy(TabClosingPolicy.UNAVAILABLE);
-		
-		Scene scene = new Scene(tabPane,300,300);
-		
-		Tab T = new Tab("A");
-		tabPane.getTabs().add(T);
-		
-		
-		Pane P = new Pane();
-		P.setBorder(new Border(new BorderStroke(Color.BLACK, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT)));
-		T.setContent(layout);
-		arg0.setScene(scene);
-		*/
+		arg0.show();
 		
 		Base.Connect();
 		
@@ -105,57 +80,14 @@ public class Jeu extends Application {
 //	    System.out.println(Panel_Centrale.getWidth()+" "+Panel_Centrale.getHeight());
 	    Rectangle clip = new Rectangle(Panel_Centrale.getWidth()+12,Panel_Centrale.getHeight()+12);
 	    Panel_Centrale.setClip(clip);
-/*		P.getChildren().add(circle);
-		layout.getChildren().addAll(P,b);*/
-/*       Thread thread = new Thread(new Runnable() {
-
-            @Override
-            public void run() {
-                Runnable updater = new Thread(this);
-
-                    try {
-                        Thread.sleep(10000);
-                    } catch (InterruptedException ex) {
-                    }
-
-                    // UI update is run on the Application thread
-                    Platform.runLater(updater);
-                }
-
-        });
-        thread.start();*/
-/*		B C = new B(new A(circle));
-		C.start();*/
-/*		arg0.widthProperty().addListener((obs, oldVal, newVal) -> {
-			System.out.println(P.getWidth()+" "+P.getHeight());
-			//System.out.println("Width: " + arg0.getWidth()+"Height: " + arg0.getHeight());
-			clip.setHeight(P.getHeight()+1);
-			clip.setWidth(P.getWidth()+1);
-			P.setClip(clip);
-		});
-
-		arg0.heightProperty().addListener((obs, oldVal, newVal) -> {
-			System.out.println(P.getWidth()+" "+P.getHeight());
-			// System.out.println("Width: " + arg0.getWidth()+" Height: " + arg0.getHeight());
-			clip.setHeight(P.getHeight()+1);
-			clip.setWidth(P.getWidth()+1);
-			 P.setClip(clip);
-		});
-		arg0.maximizedProperty().addListener(e -> {
-			if(true) {
-			System.out.println("x: "+P.getWidth()+" y:"+P.getHeight());
-			clip.setHeight(P.getHeight()+1);
-			clip.setWidth(P.getWidth()+1);
-			 P.setClip(clip);}
-		});*/
 		Commencer.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
 		    @Override
 		    public void handle(MouseEvent mouseEvent) {
 		    	if(mouseEvent.getSource() instanceof Button) {
 		    		Jeu.changerBouttonCommencer(true);
 		    		Jeu.changerTexte("");
-		    		Jeu_Code a = new Jeu_Code(Cercle);
-		    		new Jeu_Run().start();
+		    		Jeu_Code A = new Jeu_Code(Cercle);
+		    		new Jeu_Run(A).start();
 		    	}
 		    }
 		});
@@ -165,6 +97,11 @@ public class Jeu extends Application {
 		    	if(mouseEvent.getSource() instanceof Button) {
 		    		new Tableau();
 		    	}
+		    }
+		});
+		arg0.setOnCloseRequest(new EventHandler<WindowEvent>() {
+		    @Override public void handle(WindowEvent t) {
+		        System.exit(0);
 		    }
 		});
 		arg0.setResizable(false);

@@ -1,16 +1,10 @@
-import java.util.ArrayList;
-import java.util.List;
-
-import javafx.application.Application;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
+
 
 public class Tableau  {
 	private TableView table = new TableView();
