@@ -1,0 +1,3 @@
+-Optimiser la gestion de bases de données (limiter le contenu de la table au 10 Premiers Scores seulement).
+-Afficher le Score pour les joueurs qui n'ont pas battu le record aussi.
+-Ajouter la possibilité de changer la "Résolution".
